@@ -105,13 +105,16 @@ xlim([0 length(indplot)+1]); ylim([0 N+2.5])
 axis off
 
 if length(ExtraMatrixToPlot)>0
+    %%% the next two lines were commented to use the linear track data
     ExtraMatrixToPlot = ExtraMatrixToPlot - prctile(ExtraMatrixToPlot(:),50); 
     ExtraMatrixToPlot(ExtraMatrixToPlot<=0)=0;
-    imagesc(ExtraMatrixToPlot, 'ydata', [N+2.5 1.12*N+2.5], 'xdata', [1 length(indplot)]); 
+    axBin = imagesc(ExtraMatrixToPlot, 'ydata', [N+2.5 1.12*N+2.5], 'xdata', [1 length(indplot)]); 
     cmap  = 1/256*flipud([158,1,66;213,62,79;244,109,67;253,174,97;254,224,139;255,255,191;230,245,152;171,221,164;102,194,165;50,136,189;94,79,162;1 1 1]); % from colorbrewer spectral
     cmap(1,:) = 0; 
     colormap(cmap)
     ylim([0 1.12*N+4])
+% line('Ydata', ExtraMatrixToPlot, 'Xdata', linspace(1,1, length(ExtraMatrixToPlot)))
+
 end
 
 %% plot Wflat (collapse out L dimension of W)
@@ -146,7 +149,7 @@ ylim([dn/2 dn*K+dn*3]);xlim([0 length(indplot)+1])
 axis off
 %%
 if plotAll
-%       linkaxes([axIm axW axWflat], 'y'); 
+      linkaxes([axIm axW axWflat], 'y'); 
       linkaxes([axIm axH], 'x');
 end
 drawnow
